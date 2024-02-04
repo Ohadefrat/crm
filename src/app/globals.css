@@ -1,27 +1,212 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
+html,
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  min-height: 100%;
+}
+
+#__next {
+  height: 100%;
+}
+
+code {
+  font-family: 'Inter', sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue';
+  padding: 0.1rem 0.4rem;
+  font-size: 90%;
+  color: #d400ff;
+  border-radius: 0.1335rem;
+}
+code:not([class*='language-']):before,
+code:not([class*='language-']):after {
+  content: '`';
+}
+code[class*='language-'] {
+  padding: 0;
+}
+
+/* styles/FullCalendar.css */
+
+/* Basic styling for FullCalendar */
+.fc {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  color: #6b6b6b;
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
+  padding: 1%;
+}
+
+/* Event styling */
+.fc-event {
+  cursor: pointer;
+  background-color: #fff;
+  color: #fff;
+  padding: 2px 4px;
+  margin: 2px;
+  border-radius: 3px;
+}
+
+.fc-h-event{
+  border: none !important;
+}
+.fc-event:hover {
+  background-color: #758696;
+  border-color: #758696;
+}
+
+/* Day cell styling */
+.fc-day {
+  position: relative;
+  min-height: 80px; /* Adjust as needed */
+  border: 1px solid #ddd;
+  padding: 5px;
+  cursor: pointer;
+}
+
+/* Today cell styling */
+.fc-day-today {
+  background-color: #f0f0f0;
+}
+
+/* Header styling */
+.fc-toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.fc-button {
+  background-color: #F4C18B;
+  color: #fff;
+  border: 1px solid #F4C18B;
+  padding: 5px 10px;
+  margin: 0 2px;
+  cursor: pointer;
+}
+
+.fc-button:hover {
+  background-color: #4f98e7;
+  border-color: #355270;
+}
+
+/* Prev/Next buttons styling */
+.fc-prev-button,
+.fc-next-button {
+  background-color: #424B54 !important;
+  color: #fff !important;
+  border: 1px solid #758696 !important;
+  padding: 5px 10px !important;
+  margin: 0 2px !important;
+  cursor: pointer !important;
+}
+
+.fc-prev-button:hover,
+.fc-next-button:hover {
+  background-color: #758696 !important;
+  border-color: #758696 !important;
+}
+.fc-toolbar-chunk{
+  color: #838383;
+}
+.fc-today-button {
+  background-color: #F4C18B !important;
+  color: #fff !important;
+  border: 1px solid #F4C18B !important;
+  padding: 5px 10px !important;
+  margin: 0 2px !important;
+  cursor: pointer !important;
+}
+
+.fc-today-button:hover {
+  background-color: #C5BAAF !important;
+  border-color: #C5BAAF !important;
+  color:#000 !important
+}
+/* Month button styling */
+.fc-dayGridMonth-button {
+  background-color: #F4C18B !important;
+  color: #ffffff !important;
+  border: 1px solid #424B54 !important;
+  padding: 5px 10px !important;
+  margin: 0 2px !important;
+  cursor: pointer !important;
+}
+
+.fc-dayGridMonth-button:hover {
+  background-color: #C5BAAF !important;
+  border-color: #C5BAAF !important;
+  color:#000 !important
+
+}
+
+/* Week button styling */
+.fc-timeGridWeek-button {
+  background-color: #F4C18B !important;
+  color: #fff !important;
+  border: 1px solid #F4C18B !important;
+  padding: 5px 10px !important;
+  margin: 0 2px !important;
+  cursor: pointer !important;
+}
+
+.fc-timeGridWeek-button:hover {
+  background-color: #C5BAAF !important;
+  border-color: #C5BAAF !important;
+  color:#000 !important
+
+}
+
+/* Day button styling */
+.fc-timeGridDay-button {
+  background-color: #F4C18B !important;
+  color: #fff !important;
+  border: 1px solid #F4C18B !important;
+  padding: 5px 10px !important;
+  margin: 0 2px !important;
+  cursor: pointer !important;
+}
+
+.fc-timeGridDay-button:hover {
+  background-color: #C5BAAF !important;
+  border-color: #C5BAAF !important;
+  color:#000 !important
+
+}
+
+.fc table {
+  border-color: #424B54 !important;
+}
+
+/* Day cells border styling */
+.fc-daygrid-day-frame {
+  border-color: #F4C18B !important;
+}
+
+.fc-view-harness {
+  border-color: #F4C18B !important;
+}
+
+/* Day cells border styling */
+
+/* Table grid styling */
+.fc-scrollgrid {
+  border: 1px solid #F4C18B !important;
+}
+
+/* Each day in the calendar styling */
+.fc-day {
+  border: 1px solid #424B54 !important;
+}
+
+.react-datepicker-wrapper .datePicker {
+  width: 100%;
+}
+.react-datepicker__input-container {
+  width: 100%;
+
+}
+.react-datepicker-ignore-onclickoutside{
+  width: 100%;
+
 }
