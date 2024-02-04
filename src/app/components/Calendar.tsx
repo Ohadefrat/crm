@@ -113,34 +113,47 @@ const MyCalendar: React.FC<CalendarProps> = ({ theme }) => {
   useEffect(() => {
     // Fetch events from the API
     fetch("/api/events/getAll")
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
       .then((data) => {
-        // Transform the data to match your CalendarEvent type
-        const formattedEvents = data.map(
-          (event: {
-            id: { toString: () => any };
-            title: any;
-            allDay: any;
-            start: string | number | Date;
-            end: string | number | Date;
-            calendar: any;
-          }) => ({
-            id: event.id.toString(), // Assuming your Prisma event ID is a number
-            title: event.title,
-            allDay: event.allDay,
-            start: new Date(event.start),
-            end: new Date(event.end),
-            extendedProps: {
-              calendar: event.calendar,
-            },
-          })
-        );
+        if (Array.isArray(data.data)) {
+          // Transform the data.data array to match your CalendarEvent type
+          const formattedEvents = data.data.map(
+            (event: {
+              id: { toString: () => any };
+              title: any;
+              allDay: any;
+              start: string | number | Date;
+              end: string | number | Date;
+              calendar: any;
+            }) => ({
+              id: event.id.toString(),
+              title: event.title,
+              allDay: event.allDay,
+              start: new Date(event.start),
+              end: new Date(event.end),
+              extendedProps: {
+                calendar: event.calendar,
+              },
+            })
+          );
 
-        // Set the events in state
-        setCalendarEvents(formattedEvents);
+          // Set the events in state
+          setCalendarEvents(formattedEvents);
+        } else {
+          console.error(
+            "Data received from the API does not contain an array:",
+            data
+          );
+        }
       })
       .catch((error) => console.error("Error fetching events:", error));
   }, []);
+
   const handleEventClick = (eventInfo: any) => {
     setSelectedEvent(eventInfo.event);
     setFormValues({
