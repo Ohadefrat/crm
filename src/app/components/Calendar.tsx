@@ -569,7 +569,6 @@ const PickersComponent = forwardRef(({ ...props }: PickerProps, ref) => {
     />
   );
 });
-//weee
 PickersComponent.displayName = "PickersComponent";
 
 export default MyCalendar;
