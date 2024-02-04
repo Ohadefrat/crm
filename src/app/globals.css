@@ -40,16 +40,18 @@ code[class*='language-'] {
 /* Event styling */
 .fc-event {
   cursor: pointer;
-  background-color: #fff;
+  background-color: #424B54;
   color: #fff;
+  border: 1px solid #92a7bb;
   padding: 2px 4px;
   margin: 2px;
   border-radius: 3px;
 }
-
-.fc-h-event{
-  border: none !important;
-}
+.bg-Personal { background-color: #FF5733; }
+.bg-Business { background-color: #3366FF; }
+.bg-Family { background-color: #33FF33; }
+.bg-Holiday { background-color: #FFCC00; }
+.bg-ETC { background-color: #9900CC; }
 .fc-event:hover {
   background-color: #758696;
   border-color: #758696;

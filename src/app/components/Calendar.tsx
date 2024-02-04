@@ -24,7 +24,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePickerWrapper from "../style/react-datepicker";
-import { EventInput } from "@fullcalendar/core/index.js";
+import { EventApi, EventInput } from "@fullcalendar/core/index.js";
 
 // interface CalendarEvent {
 //   id: string;
@@ -135,7 +135,9 @@ const MyCalendar: React.FC<CalendarProps> = ({ theme }) => {
               title: event.title,
               allDay: event.allDay,
               start: new Date(event.start),
-              end: new Date(event.end),
+              end: event.allDay
+                ? new Date(new Date(event.end).getTime() + 24 * 60 * 60 * 1000)
+                : new Date(event.end), // Increment end date by one day
               extendedProps: {
                 calendar: event.calendar,
               },
@@ -304,6 +306,36 @@ const MyCalendar: React.FC<CalendarProps> = ({ theme }) => {
     // Use category as an index, or provide the default color if it's undefined
     return category ? categoryColors[category] || defaultColor : defaultColor;
   };
+
+  const eventClassNames = ({ event }: { event: any }) => {
+    const category = event.extendedProps.calendar;
+    const classNames = [];
+
+    // Determine the class name based on the category
+    switch (category) {
+      case "Personal":
+        classNames.push("bg-Personal");
+        break;
+      case "Business":
+        classNames.push("bg-Business");
+        break;
+      case "Family":
+        classNames.push("bg-Family");
+        break;
+      case "Holiday":
+        classNames.push("bg-Holiday");
+        break;
+      case "ETC":
+        classNames.push("bg-ETC");
+        break;
+      default:
+        // Default class for events with unknown categories
+        classNames.push("bg-default"); // You can define this class as needed
+        break;
+    }
+
+    return classNames;
+  };
   return (
     <div>
       <div style={{ marginBottom: "20px" }}>
@@ -391,21 +423,7 @@ const MyCalendar: React.FC<CalendarProps> = ({ theme }) => {
           listPlugin,
           bootstrap5Plugin,
         ]}
-        eventContent={(arg) => {
-          const backgroundColor = getEventBackgroundColor(arg.event as any);
-          return (
-            <div
-              style={{
-                backgroundColor,
-                color: "white", // You can adjust the text color as needed
-                padding: "3px",
-                borderRadius: "5px",
-              }}
-            >
-              {arg.event.title}
-            </div>
-          );
-        }}
+        eventClassNames={eventClassNames}
         initialView="dayGridMonth"
         events={filteredEvents}
         eventClick={handleEventClick}
