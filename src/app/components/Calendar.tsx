@@ -230,14 +230,23 @@ const MyCalendar: React.FC<CalendarProps> = ({ theme }) => {
     const updatedStart = event.start;
     const updatedEnd = event.end || event.start; // Use event.start if end time is not defined
 
-    // Prepare the data to be sent for updating the event
+    // Update the event's position in the calendarEvents state
+    const updatedEvents = calendarEvents.map((calEvent) =>
+      calEvent.id === event.id
+        ? { ...calEvent, start: updatedStart, end: updatedEnd }
+        : calEvent
+    );
+
+    setCalendarEvents(updatedEvents);
+
+    // Prepare the data to be sent for updating the event in the database
     const requestData = {
       eventId: event.id,
       start: updatedStart,
       end: updatedEnd,
     };
 
-    // Send a PUT request to update the event's start and end times
+    // Send a PUT request to update the event in the database
     fetch(`/api/events/updateEvent?eventId=${event.id}`, {
       method: "PUT",
       headers: {
@@ -248,14 +257,12 @@ const MyCalendar: React.FC<CalendarProps> = ({ theme }) => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Event updated:", data);
-
-        // Update the event in the calendarEvents state
-        const updatedEvents = calendarEvents.map((calEvent) =>
-          calEvent.id === event.id ? { ...calEvent, ...data } : calEvent
-        );
-        setCalendarEvents(updatedEvents);
+        // You can add any additional logic or feedback as needed
       })
-      .catch((error) => console.error("Error updating event:", error));
+      .catch((error) => {
+        console.error("Error updating event:", error);
+        // Handle the error, such as displaying an error message
+      });
   };
 
   const handleDeleteEvent = () => {
