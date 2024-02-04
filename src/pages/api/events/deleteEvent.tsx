@@ -3,7 +3,17 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: { method: string; query: { eventId: any } },
+  res: {
+    status: (arg0: number) => {
+      (): any;
+      new (): any;
+      json: { (arg0: { message?: string; error?: string }): void; new (): any };
+      end: { (): void; new (): any };
+    };
+  }
+) {
   if (req.method === "DELETE") {
     const { eventId } = req.query;
 

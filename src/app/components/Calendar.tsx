@@ -556,6 +556,7 @@ const MyCalendar: React.FC<CalendarProps> = ({ theme }) => {
     </div>
   );
 };
+
 const PickersComponent = forwardRef(({ ...props }: PickerProps, ref) => {
   return (
     <TextField
@@ -568,5 +569,7 @@ const PickersComponent = forwardRef(({ ...props }: PickerProps, ref) => {
     />
   );
 });
+
+PickersComponent.displayName = "PickersComponent";
 
 export default MyCalendar;
