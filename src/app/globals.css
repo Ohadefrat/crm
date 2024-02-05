@@ -41,20 +41,46 @@ code[class*='language-'] {
 .fc-event {
   cursor: pointer;
   background-color: #424B54;
-  color: #fff;
-  border: 1px solid #92a7bb;
+  color: #000000;
   padding: 2px 4px;
   margin: 2px;
   border-radius: 3px;
+  font-weight: normal !important; /* Add !important */
 }
-.bg-Personal { background-color: #FF5733; }
-.bg-Business { background-color: #3366FF; }
-.bg-Family { background-color: #33FF33; }
-.bg-Holiday { background-color: #FFCC00; }
-.bg-ETC { background-color: #9900CC; }
+
+.fc-event-main {
+  cursor: pointer !important;
+  font-weight: normal !important; /* Add !important */
+  color: #000000 !important;
+}
+.fc-event-title{
+  font-weight: normal !important; /* Add !important */
+
+}
+.fc-event-time{
+  font-weight: normal !important; /* Add !important */
+
+}
+.fc-h-event{
+border:none !important;
+cursor: pointer;
+background-color: #424B54;
+color: #000000;
+padding: 2px 4px;
+margin: 2px;
+border-radius: 3px;
+}
+.fc-v-event{
+  border:none !important;
+}
+.bg-Personal { background-color: #FFB6C1; } /* Pastel Pink */
+.bg-Business { background-color: #AEC6CF; } /* Pastel Blue */
+.bg-Family { background-color: #98FB98; } /* Pastel Green */
+.bg-Holiday { background-color: #F0E68C; } /* Pastel Yellow */
+.bg-ETC { background-color: #c0ffec; } /* Pastel Pink */
 .fc-event:hover {
-  background-color: #758696;
-  border-color: #758696;
+  background-color: #C0C0C0; /* Light Gray */
+  border-color: #C0C0C0;
 }
 
 /* Day cell styling */
