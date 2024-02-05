@@ -26,6 +26,7 @@ interface User {
   password: string;
   email: string;
   avatarUrl: string;
+  role: string;
 }
 
 const UserList: React.FC = () => {
@@ -41,6 +42,7 @@ const UserList: React.FC = () => {
     password: "",
     email: "",
     avatarUrl: "",
+    role: "",
   });
   const [editingUser, setEditingUser] = useState<User | null>(null);
   useEffect(() => {
@@ -85,6 +87,7 @@ const UserList: React.FC = () => {
         password: "",
         email: "",
         avatarUrl: "",
+        role: "",
       });
     }
     setDrawerOpen(!drawerOpen);
@@ -162,6 +165,7 @@ const UserList: React.FC = () => {
             password: "",
             email: "",
             avatarUrl: "",
+            role: "",
           });
           setEditingUser(null);
         } else {
@@ -370,12 +374,16 @@ const UserList: React.FC = () => {
                 <TableCell>{user.fullName}</TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>
-                  <IconButton onClick={() => handleDelete(user.id)}>
-                    <DeleteIcon />
-                  </IconButton>
-                  <IconButton onClick={handleToggleDrawer(user)}>
-                    <EditIcon />
-                  </IconButton>
+                  {user.role !== "admin" && ( // Check if user.role is not 'admin'
+                    <>
+                      <IconButton onClick={() => handleDelete(user.id)}>
+                        <DeleteIcon />
+                      </IconButton>
+                      <IconButton onClick={handleToggleDrawer(user)}>
+                        <EditIcon />
+                      </IconButton>
+                    </>
+                  )}
                 </TableCell>
               </TableRow>
             ))}
