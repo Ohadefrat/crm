@@ -7,14 +7,10 @@ const RegisterPage = () => {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    // // Add logic for handling Register
-    // // For demonstration purposes, log the form data
-    console.log(event.target.email.value);
-    // console.log(event.target.fullName.value);
 
-    console.log(event.target.password.value);
-    // console.log(event.target.passwordConfirmation.value);
     try {
+      const email = event.target.email.value;
+      const username = email.split("@")[0];
       const response = await fetch("/api/create-user", {
         method: "POST",
         headers: {
@@ -23,6 +19,8 @@ const RegisterPage = () => {
         body: JSON.stringify({
           email: event.target.email.value,
           password: event.target.password.value,
+          role: "client",
+          fullName: event.target.fullName.value,
         }),
       });
 
@@ -30,8 +28,8 @@ const RegisterPage = () => {
         // Handle successful user creation
         const data = await response.json();
         console.log("User created:", data.user);
-       // window.location.href = "/"; // Replace '/' with the desired route
-        router.push("/")
+        // window.location.href = "/"; // Replace '/' with the desired route
+        router.push("/");
       } else {
         // Handle errors
         const errorData = await response.json();

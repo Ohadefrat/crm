@@ -115,14 +115,19 @@ border-radius: 3px;
 
 .fc-button:hover {
   background-color: #4f98e7;
-  border-color: #355270;
+  border-color: #000000;
+}
+[aria-pressed="true"].fc-button {
+  border: 2px solid black !important; /* Replace 'red' with your desired border color */
+  /* Additional border styles can be added here, such as border-radius, padding, etc. */
+
 }
 
 /* Prev/Next buttons styling */
 .fc-prev-button,
 .fc-next-button {
   background-color: #424B54 !important;
-  color: #fff !important;
+  color: #000000 !important;
   border: 1px solid #758696 !important;
   padding: 5px 10px !important;
   margin: 0 2px !important;
@@ -139,7 +144,7 @@ border-radius: 3px;
 }
 .fc-today-button {
   background-color: #F4C18B !important;
-  color: #fff !important;
+  color: #000000 !important;
   border: 1px solid #F4C18B !important;
   padding: 5px 10px !important;
   margin: 0 2px !important;
@@ -154,16 +159,15 @@ border-radius: 3px;
 /* Month button styling */
 .fc-dayGridMonth-button {
   background-color: #F4C18B !important;
-  color: #ffffff !important;
-  border: 1px solid #424B54 !important;
+  color: #000000 !important;
   padding: 5px 10px !important;
   margin: 0 2px !important;
   cursor: pointer !important;
+  border: none !important;
 }
 
 .fc-dayGridMonth-button:hover {
   background-color: #C5BAAF !important;
-  border-color: #C5BAAF !important;
   color:#000 !important
 
 }
@@ -171,10 +175,10 @@ border-radius: 3px;
 /* Week button styling */
 .fc-timeGridWeek-button {
   background-color: #F4C18B !important;
-  color: #fff !important;
+  color: #000000 !important;
   border: 1px solid #F4C18B !important;
   padding: 5px 10px !important;
-  margin: 0 2px !important;
+  margin: 0 3px !important;
   cursor: pointer !important;
 }
 
@@ -188,8 +192,10 @@ border-radius: 3px;
 /* Day button styling */
 .fc-timeGridDay-button {
   background-color: #F4C18B !important;
-  color: #fff !important;
+  color: #000000 !important;
   border: 1px solid #F4C18B !important;
+  border-radius: 3px;
+
   padding: 5px 10px !important;
   margin: 0 2px !important;
   cursor: pointer !important;

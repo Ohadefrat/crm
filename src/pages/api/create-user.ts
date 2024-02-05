@@ -1,12 +1,14 @@
 import { PrismaClient } from "@prisma/client";
 
 export default async function handler(
-    req: { method: string; body: { email: any; password: any; }; },
-    res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message?: unknown; data?: any; error?: string; }): void; new(): any; }; }; },
+    req: {
+        method: string;
+        body: { email: any; password: any; role: any; fullName: any }; // Include fullName in the request body
+    }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message?: unknown; data?: any; error?: string; }): void; new(): any; }; }; },
 ) {
     if (req.method === "POST") {
         const prisma = new PrismaClient();
-        const { email, password } = req.body;
+        const { email, password, fullName, role } = req.body;
         console.log(req.body);
 
         try {
@@ -14,6 +16,8 @@ export default async function handler(
                 data: {
                     email: email,
                     password: password,
+                    role: role,
+                    fullName: fullName,
                     updatedAt: new Date()
                 },
             });

@@ -7,6 +7,7 @@ import Sidebar from "../app/components/Sidebar";
 import MenuIcon from "@mui/icons-material/Menu";
 import MyCalendar from "./components/Calendar";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import UserList from "./components/Users";
 
 const theme = createTheme({
   palette: {
@@ -18,7 +19,12 @@ const theme = createTheme({
     },
   },
 });
-
+interface User {
+  id: string;
+  fullName: string;
+  email: string;
+  avatarUrl: string;
+}
 export default function Home() {
   const router = useRouter();
   const authToken = Cookies.get("authToken");
@@ -48,7 +54,26 @@ export default function Home() {
     // Redirect to the login page
     window.location.href = "/login";
   };
-
+  const fakeUsers: User[] = [
+    {
+      id: "1",
+      fullName: "John Doe",
+      email: "john@example.com",
+      avatarUrl: "https://example.com/avatar1.png",
+    },
+    {
+      id: "2",
+      fullName: "Jane Smith",
+      email: "jane@example.com",
+      avatarUrl: "https://example.com/avatar2.png",
+    },
+    {
+      id: "3",
+      fullName: "Bob Johnson",
+      email: "bob@example.com",
+      avatarUrl: "https://example.com/avatar3.png",
+    },
+  ];
   return (
     <ThemeProvider theme={theme}>
       <div style={{ display: "flex", height: "100vh" }}>
@@ -62,7 +87,11 @@ export default function Home() {
           }}
         >
           {selectedMenuItem === "Calendar" && <MyCalendar theme={theme} />}
-          {selectedMenuItem === "Users" && <div>Users Information</div>}
+          {selectedMenuItem === "Users" && (
+            <div>
+              <UserList />
+            </div>
+          )}
 
           {/* Add your content here */}
         </div>

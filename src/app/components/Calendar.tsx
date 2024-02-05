@@ -347,6 +347,7 @@ const MyCalendar: React.FC<CalendarProps> = ({ theme }) => {
               style={{
                 marginRight: "8px",
                 backgroundColor: theme.palette.secondary.main,
+                color: "#000000",
               }}
             >
               All
@@ -356,7 +357,8 @@ const MyCalendar: React.FC<CalendarProps> = ({ theme }) => {
               onClick={() => handleFilterChange("Personal")}
               style={{
                 marginRight: "8px",
-                backgroundColor: theme.palette.secondary.main,
+                backgroundColor: "#FFB6C1",
+                color: "#000000",
               }}
             >
               Personal
@@ -366,7 +368,8 @@ const MyCalendar: React.FC<CalendarProps> = ({ theme }) => {
               onClick={() => handleFilterChange("Business")}
               style={{
                 marginRight: "8px",
-                backgroundColor: theme.palette.secondary.main,
+                backgroundColor: "#AEC6CF",
+                color: "#000000",
               }}
             >
               Business
@@ -376,7 +379,8 @@ const MyCalendar: React.FC<CalendarProps> = ({ theme }) => {
               onClick={() => handleFilterChange("Family")}
               style={{
                 marginRight: "8px",
-                backgroundColor: theme.palette.secondary.main,
+                backgroundColor: "#98FB98",
+                color: "#000000",
               }}
             >
               Family
@@ -386,7 +390,8 @@ const MyCalendar: React.FC<CalendarProps> = ({ theme }) => {
               onClick={() => handleFilterChange("Holiday")}
               style={{
                 marginRight: "8px",
-                backgroundColor: theme.palette.secondary.main,
+                backgroundColor: "#F0E68C",
+                color: "#000000",
               }}
             >
               Holiday
@@ -396,7 +401,8 @@ const MyCalendar: React.FC<CalendarProps> = ({ theme }) => {
               onClick={() => handleFilterChange("ETC")}
               style={{
                 marginRight: "8px",
-                backgroundColor: theme.palette.secondary.main,
+                backgroundColor: "#c0ffec",
+                color: "#000000",
               }}
             >
               ETC
@@ -408,6 +414,7 @@ const MyCalendar: React.FC<CalendarProps> = ({ theme }) => {
               onClick={handleAddEventButtonClick}
               style={{
                 backgroundColor: theme.palette.secondary.main,
+                color: "#000000",
               }}
             >
               Add Event
@@ -430,9 +437,9 @@ const MyCalendar: React.FC<CalendarProps> = ({ theme }) => {
         editable={true}
         eventDrop={handleEventDrop}
         headerToolbar={{
-          left: "prev,next today",
-          center: "title",
-          right: "dayGridMonth,timeGridWeek,timeGridDay",
+          right: "today prev,next",
+          left: "title",
+          center: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
         themeSystem={theme}
       />
