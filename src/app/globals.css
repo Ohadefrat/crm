@@ -1,6 +1,14 @@
 html,
 body {
   min-height: 100%;
+  background-image: url("../../public/bg-image.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100vw;
+  height: 100vh;
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
 }
 
 #__next {
@@ -32,8 +40,9 @@ code[class*='language-'] {
   flex-direction: column;
   align-items: stretch;
   color: #6b6b6b;
-  background-color: #ffffff;
+  background-color: #ffffff63;
   border: 1px solid #ffffff;
+  border-radius: 10px;
   padding: 1%;
 }
 
@@ -244,3 +253,17 @@ border-radius: 3px;
   width: 100%;
 
 }
+.icon-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 20px; /* Adjust padding as needed */
+  z-index: 1; /* Ensure the icon appears above the background */
+}
+
+/* Style your SVG icon as needed */
+.icon-container img {
+  width: 40px; /* Adjust the width and height as needed */
+  height: 40px;
+}
+
