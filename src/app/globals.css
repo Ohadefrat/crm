@@ -295,7 +295,16 @@ border-radius: 3px;
   padding: 20px; /* Adjust padding as needed */
   z-index: 1; /* Ensure the icon appears above the background */
 }
-
+.icon-container-imgs {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+.icon-container-imgs-left {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}
 /* Style your SVG icon as needed */
 .icon-container img {
   width: 40px; /* Adjust the width and height as needed */
@@ -354,6 +363,16 @@ border-radius: 3px;
   .fc-today-button{
     height: 30px;
     font-size: 0.8rem !important;
+  }
+
+  svg {
+    width: 50%;
+    height: 50%;
+  }
+  .icon-container-imgs {
+    position: fixed;
+    top:-10px;
+    right:-200px;
   }
 
 }
