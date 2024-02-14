@@ -336,92 +336,147 @@ const MyCalendar: React.FC<CalendarProps> = ({ theme }) => {
 
     return classNames;
   };
+
+  // Check if the device is mobile
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    // Set initial mobile state
+    handleResize();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Remove event listener when component unmounts
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div>
-      <div style={{ marginBottom: "20px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div>
-            <Button
-              variant="contained"
-              onClick={() => handleFilterChange("all")}
-              style={{
-                marginRight: "8px",
-                backgroundColor: theme.palette.secondary.main,
-                color: "#000000",
-              }}
-            >
-              All
-            </Button>
-            <Button
-              variant="contained"
-              onClick={() => handleFilterChange("Personal")}
-              style={{
-                marginRight: "8px",
-                backgroundColor: "#FFB6C1",
-                color: "#000000",
-              }}
-            >
-              Personal
-            </Button>
-            <Button
-              variant="contained"
-              onClick={() => handleFilterChange("Business")}
-              style={{
-                marginRight: "8px",
-                backgroundColor: "#AEC6CF",
-                color: "#000000",
-              }}
-            >
-              Business
-            </Button>
-            <Button
-              variant="contained"
-              onClick={() => handleFilterChange("Family")}
-              style={{
-                marginRight: "8px",
-                backgroundColor: "#98FB98",
-                color: "#000000",
-              }}
-            >
-              Family
-            </Button>
-            <Button
-              variant="contained"
-              onClick={() => handleFilterChange("Holiday")}
-              style={{
-                marginRight: "8px",
-                backgroundColor: "#F0E68C",
-                color: "#000000",
-              }}
-            >
-              Holiday
-            </Button>
-            <Button
-              variant="contained"
-              onClick={() => handleFilterChange("ETC")}
-              style={{
-                marginRight: "8px",
-                backgroundColor: "#c0ffec",
-                color: "#000000",
-              }}
-            >
-              ETC
-            </Button>
-          </div>
-          <div>
-            <Button
-              variant="contained"
-              onClick={handleAddEventButtonClick}
-              style={{
-                backgroundColor: theme.palette.secondary.main,
-                color: "#000000",
-              }}
-            >
-              Add Event
-            </Button>
+      {!isMobile ? (
+        // Desktop view
+        <div style={{ marginBottom: "20px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div>
+              <Button
+                variant="contained"
+                onClick={() => handleFilterChange("all")}
+                style={{
+                  marginRight: "8px",
+                  backgroundColor: theme.palette.secondary.main,
+                  color: "#000000",
+                }}
+              >
+                All
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => handleFilterChange("Personal")}
+                style={{
+                  marginRight: "8px",
+                  backgroundColor: "#FFB6C1",
+                  color: "#000000",
+                }}
+              >
+                Personal
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => handleFilterChange("Business")}
+                style={{
+                  marginRight: "8px",
+                  backgroundColor: "#AEC6CF",
+                  color: "#000000",
+                }}
+              >
+                Business
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => handleFilterChange("Family")}
+                style={{
+                  marginRight: "8px",
+                  backgroundColor: "#98FB98",
+                  color: "#000000",
+                }}
+              >
+                Family
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => handleFilterChange("Holiday")}
+                style={{
+                  marginRight: "8px",
+                  backgroundColor: "#F0E68C",
+                  color: "#000000",
+                }}
+              >
+                Holiday
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => handleFilterChange("ETC")}
+                style={{
+                  marginRight: "8px",
+                  backgroundColor: "#c0ffec",
+                  color: "#000000",
+                }}
+              >
+                ETC
+              </Button>
+            </div>
+            <div>
+              <Button
+                variant="contained"
+                onClick={handleAddEventButtonClick}
+                style={{
+                  backgroundColor: theme.palette.secondary.main,
+                  color: "#000000",
+                }}
+              >
+                Add Event
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        // Mobile view
+        <div style={{ marginBottom: "20px" }}>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel id="sort-button-label">Sort By</InputLabel>
+            <Select
+              labelId="sort-button-label"
+              value={filterType}
+              onChange={(e) => handleFilterChange(e.target.value as string)}
+              label="Sort By"
+            >
+              <MenuItem value="all">All</MenuItem>
+              <MenuItem value="Personal">Personal</MenuItem>
+              <MenuItem value="Business">Business</MenuItem>
+              <MenuItem value="Family">Family</MenuItem>
+              <MenuItem value="Holiday">Holiday</MenuItem>
+              <MenuItem value="ETC">ETC</MenuItem>
+            </Select>
+          </FormControl>
+          <Button
+            variant="contained"
+            onClick={handleAddEventButtonClick}
+            style={{
+              marginTop: "16px",
+              backgroundColor: theme.palette.secondary.main,
+              color: "#000000",
+            }}
+          >
+            Add Event
+          </Button>
+        </div>
+      )}
       <FullCalendar
         plugins={[
           interactionPlugin,
@@ -444,164 +499,334 @@ const MyCalendar: React.FC<CalendarProps> = ({ theme }) => {
         themeSystem={theme}
       />
 
-      <Drawer
-        anchor="right"
-        open={editDialogOpen}
-        onClose={handleEditDialogClose}
-        ModalProps={{ keepMounted: true }}
-        sx={{ "& .MuiDrawer-paper": { width: ["25%"] } }}
-      >
-        <Box
-          className="sidebar-header"
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            backgroundColor: "background.default",
-            p: (theme) => theme.spacing(3, 3.255, 3, 5.255),
-          }}
+      {!isMobile ? (
+        // Desktop view
+        <Drawer
+          anchor="right"
+          open={editDialogOpen}
+          onClose={handleEditDialogClose}
+          ModalProps={{ keepMounted: true }}
+          sx={{ "& .MuiDrawer-paper": { width: ["30%"] } }}
         >
-          <Typography variant="h6">
-            {selectedEvent !== null && selectedEvent.title.length
-              ? "Update Event"
-              : "Add Event"}
-          </Typography>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            {selectedEvent !== null && selectedEvent.title.length ? (
+          <Box
+            className="sidebar-header"
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              backgroundColor: "background.default",
+              p: (theme) => theme.spacing(3, 3.255, 3, 5.255),
+            }}
+          >
+            <Typography variant="h6">
+              {selectedEvent !== null && selectedEvent.title.length
+                ? "Update Event"
+                : "Add Event"}
+            </Typography>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              {selectedEvent !== null && selectedEvent.title.length ? (
+                <IconButton
+                  size="small"
+                  onClick={handleDeleteEvent}
+                  sx={{
+                    color: "text.primary",
+                    mr: selectedEvent !== null ? 1 : 0,
+                  }}
+                ></IconButton>
+              ) : null}
               <IconButton
                 size="small"
-                onClick={handleDeleteEvent}
-                sx={{
-                  color: "text.primary",
-                  mr: selectedEvent !== null ? 1 : 0,
-                }}
+                onClick={handleEditDialogClose}
+                sx={{ color: "text.primary" }}
               ></IconButton>
-            ) : null}
-            <IconButton
-              size="small"
-              onClick={handleEditDialogClose}
-              sx={{ color: "text.primary" }}
-            ></IconButton>
+            </Box>
           </Box>
-        </Box>
-        <Box
-          className="sidebar-body"
-          sx={{ p: (theme) => theme.spacing(5, 6) }}
-        >
-          <DatePickerWrapper>
-            <form onSubmit={handleSaveChanges} autoComplete="off">
-              {/* Existing code for Title field */}
-              <TextField
-                label="Title"
-                value={formValues.title}
-                fullWidth
-                sx={{ mb: 2 }}
-                onChange={(e) => handleFormChange("title", e.target.value)}
-              />
-              {/* Additional fields */}
-              <FormControl fullWidth sx={{ mb: 2 }}>
-                <InputLabel id="event-category">Category</InputLabel>
-                <Select
-                  label="Category"
-                  value={formValues?.extendedProps?.calendar || ""}
-                  labelId="event-category"
-                  onChange={(e) => handleFormChange("calendar", e.target.value)}
-                >
-                  <MenuItem value="Personal">Personal</MenuItem>
-                  <MenuItem value="Business">Business</MenuItem>
-                  <MenuItem value="Family">Family</MenuItem>
-                  <MenuItem value="Holiday">Holiday</MenuItem>
-                  <MenuItem value="ETC">ETC</MenuItem>
-                </Select>
-              </FormControl>
-              <Box sx={{ mb: 2, width: "100%" }}>
-                <DatePicker
-                  selectsStart
-                  id="event-start-date"
-                  endDate={formValues.end as Date}
-                  selected={formValues.start as Date}
-                  startDate={formValues.start as Date}
-                  showTimeSelect={!formValues.allDay}
-                  dateFormat={
-                    !formValues.allDay ? "yyyy-MM-dd hh:mm" : "yyyy-MM-dd"
-                  }
-                  customInput={
-                    <PickersComponent
-                      label="Start Date"
-                      registername="startDate"
-                    />
-                  }
-                  onChange={(date) => handleFormChange("start", date)}
+          <Box
+            className="sidebar-body"
+            sx={{ p: (theme) => theme.spacing(5, 6) }}
+          >
+            <DatePickerWrapper>
+              <form onSubmit={handleSaveChanges} autoComplete="off">
+                {/* Existing code for Title field */}
+                <TextField
+                  label="Title"
+                  value={formValues.title}
+                  fullWidth
+                  sx={{ mb: 2 }}
+                  onChange={(e) => handleFormChange("title", e.target.value)}
                 />
-              </Box>
-              <Box sx={{ mb: 2, width: "100%" }}>
-                <DatePicker
-                  selectsEnd
-                  id="event-end-date"
-                  endDate={formValues.end as Date}
-                  selected={formValues.end as Date}
-                  startDate={formValues.start as Date}
-                  showTimeSelect={!formValues.allDay}
-                  dateFormat={
-                    !formValues.allDay ? "yyyy-MM-dd hh:mm" : "yyyy-MM-dd"
-                  }
-                  customInput={
-                    <PickersComponent label="End Date" registername="endDate" />
-                  }
-                  onChange={(date) => handleFormChange("end", date)}
-                />
-              </Box>
-              <FormControl sx={{ mb: 6 }}>
-                <FormControlLabel
-                  label="All Day"
-                  control={
-                    <Switch
-                      checked={formValues.allDay}
-                      onChange={() =>
-                        handleFormChange("allDay", !formValues.allDay)
-                      }
-                    />
-                  }
-                />
-              </FormControl>
-              <div
-                style={{
-                  marginBottom: "20px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Button
-                  variant="contained"
-                  type="submit"
-                  color="primary"
+                {/* Additional fields */}
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                  <InputLabel id="event-category">Category</InputLabel>
+                  <Select
+                    label="Category"
+                    value={formValues?.extendedProps?.calendar || ""}
+                    labelId="event-category"
+                    onChange={(e) =>
+                      handleFormChange("calendar", e.target.value)
+                    }
+                  >
+                    <MenuItem value="Personal">Personal</MenuItem>
+                    <MenuItem value="Business">Business</MenuItem>
+                    <MenuItem value="Family">Family</MenuItem>
+                    <MenuItem value="Holiday">Holiday</MenuItem>
+                    <MenuItem value="ETC">ETC</MenuItem>
+                  </Select>
+                </FormControl>
+                <Box sx={{ mb: 2, width: "100%" }}>
+                  <DatePicker
+                    selectsStart
+                    id="event-start-date"
+                    endDate={formValues.end as Date}
+                    selected={formValues.start as Date}
+                    startDate={formValues.start as Date}
+                    showTimeSelect={!formValues.allDay}
+                    dateFormat={
+                      !formValues.allDay ? "yyyy-MM-dd hh:mm" : "yyyy-MM-dd"
+                    }
+                    customInput={
+                      <PickersComponent
+                        label="Start Date"
+                        registername="startDate"
+                      />
+                    }
+                    onChange={(date) => handleFormChange("start", date)}
+                  />
+                </Box>
+                <Box sx={{ mb: 2, width: "100%" }}>
+                  <DatePicker
+                    selectsEnd
+                    id="event-end-date"
+                    endDate={formValues.end as Date}
+                    selected={formValues.end as Date}
+                    startDate={formValues.start as Date}
+                    showTimeSelect={!formValues.allDay}
+                    dateFormat={
+                      !formValues.allDay ? "yyyy-MM-dd hh:mm" : "yyyy-MM-dd"
+                    }
+                    customInput={
+                      <PickersComponent
+                        label="End Date"
+                        registername="endDate"
+                      />
+                    }
+                    onChange={(date) => handleFormChange("end", date)}
+                  />
+                </Box>
+                <FormControl sx={{ mb: 6 }}>
+                  <FormControlLabel
+                    label="All Day"
+                    control={
+                      <Switch
+                        checked={formValues.allDay}
+                        onChange={() =>
+                          handleFormChange("allDay", !formValues.allDay)
+                        }
+                      />
+                    }
+                  />
+                </FormControl>
+                <div
                   style={{
-                    backgroundColor: theme.palette.primary.main,
+                    marginBottom: "20px",
+                    display: "flex",
+                    justifyContent: "space-between",
                   }}
                 >
-                  Save Changes
-                </Button>
-                {selectedEvent !== null && selectedEvent.title.length ? (
-                  <IconButton
-                    size="small"
-                    onClick={handleDeleteEvent} // Call the delete event function here
-                    sx={{
-                      color: theme.palette.secondary.main,
-                      mr: selectedEvent !== null ? 1 : 0,
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    color="primary"
+                    style={{
+                      backgroundColor: theme.palette.success.main,
                     }}
                   >
-                    <DeleteIcon sx={{ fontSize: "30px" }} />{" "}
-                    {/* Use DeleteIcon here */}
-                  </IconButton>
-                ) : null}
-              </div>
-            </form>
-          </DatePickerWrapper>
-        </Box>
-      </Drawer>
+                    Save Changes
+                  </Button>
+                  {selectedEvent !== null && selectedEvent.title.length ? (
+                    <IconButton
+                      size="small"
+                      onClick={handleDeleteEvent} // Call the delete event function here
+                      sx={{
+                        color: theme.palette.error.main,
+                        mr: selectedEvent !== null ? 1 : 0,
+                      }}
+                    >
+                      <DeleteIcon sx={{ fontSize: "30px" }} />{" "}
+                      {/* Use DeleteIcon here */}
+                    </IconButton>
+                  ) : null}
+                </div>
+              </form>
+            </DatePickerWrapper>
+          </Box>
+        </Drawer>
+      ) : (
+        // Mobile view
+        <Drawer
+          anchor="right"
+          open={editDialogOpen}
+          onClose={handleEditDialogClose}
+          ModalProps={{ keepMounted: true }}
+          sx={{ "& .MuiDrawer-paper": { width: "85%" } }}
+        >
+          <Box
+            className="sidebar-header"
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              backgroundColor: "background.default",
+              p: (theme) => theme.spacing(3, 3.255, 3, 5.255),
+            }}
+          >
+            <Typography variant="h6">
+              {selectedEvent !== null && selectedEvent.title.length
+                ? "Update Event"
+                : "Add Event"}
+            </Typography>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              {selectedEvent !== null && selectedEvent.title.length ? (
+                <IconButton
+                  size="small"
+                  onClick={handleDeleteEvent}
+                  sx={{
+                    color: "text.primary",
+                    mr: selectedEvent !== null ? 1 : 0,
+                  }}
+                ></IconButton>
+              ) : null}
+              <IconButton
+                size="small"
+                onClick={handleEditDialogClose}
+                sx={{ color: "text.primary" }}
+              ></IconButton>
+            </Box>
+          </Box>
+          <Box
+            className="sidebar-body"
+            sx={{ p: (theme) => theme.spacing(5, 6) }}
+          >
+            <DatePickerWrapper>
+              <form onSubmit={handleSaveChanges} autoComplete="off">
+                {/* Existing code for Title field */}
+                <TextField
+                  label="Title"
+                  value={formValues.title}
+                  fullWidth
+                  sx={{ mb: 2 }}
+                  onChange={(e) => handleFormChange("title", e.target.value)}
+                />
+                {/* Additional fields */}
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                  <InputLabel id="event-category">Category</InputLabel>
+                  <Select
+                    label="Category"
+                    value={formValues?.extendedProps?.calendar || ""}
+                    labelId="event-category"
+                    onChange={(e) =>
+                      handleFormChange("calendar", e.target.value)
+                    }
+                  >
+                    <MenuItem value="Personal">Personal</MenuItem>
+                    <MenuItem value="Business">Business</MenuItem>
+                    <MenuItem value="Family">Family</MenuItem>
+                    <MenuItem value="Holiday">Holiday</MenuItem>
+                    <MenuItem value="ETC">ETC</MenuItem>
+                  </Select>
+                </FormControl>
+                <Box sx={{ mb: 2, width: "100%" }}>
+                  <DatePicker
+                    selectsStart
+                    id="event-start-date"
+                    endDate={formValues.end as Date}
+                    selected={formValues.start as Date}
+                    startDate={formValues.start as Date}
+                    showTimeSelect={!formValues.allDay}
+                    dateFormat={
+                      !formValues.allDay ? "yyyy-MM-dd hh:mm" : "yyyy-MM-dd"
+                    }
+                    customInput={
+                      <PickersComponent
+                        label="Start Date"
+                        registername="startDate"
+                      />
+                    }
+                    onChange={(date) => handleFormChange("start", date)}
+                  />
+                </Box>
+                <Box sx={{ mb: 2, width: "100%" }}>
+                  <DatePicker
+                    selectsEnd
+                    id="event-end-date"
+                    endDate={formValues.end as Date}
+                    selected={formValues.end as Date}
+                    startDate={formValues.start as Date}
+                    showTimeSelect={!formValues.allDay}
+                    dateFormat={
+                      !formValues.allDay ? "yyyy-MM-dd hh:mm" : "yyyy-MM-dd"
+                    }
+                    customInput={
+                      <PickersComponent
+                        label="End Date"
+                        registername="endDate"
+                      />
+                    }
+                    onChange={(date) => handleFormChange("end", date)}
+                  />
+                </Box>
+                <FormControl sx={{ mb: 6 }}>
+                  <FormControlLabel
+                    label="All Day"
+                    control={
+                      <Switch
+                        checked={formValues.allDay}
+                        onChange={() =>
+                          handleFormChange("allDay", !formValues.allDay)
+                        }
+                      />
+                    }
+                  />
+                </FormControl>
+                <div
+                  style={{
+                    marginBottom: "20px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    color="primary"
+                    style={{
+                      backgroundColor: theme.palette.primary.main,
+                    }}
+                  >
+                    Save Changes
+                  </Button>
+                  {selectedEvent !== null && selectedEvent.title.length ? (
+                    <IconButton
+                      size="small"
+                      onClick={handleDeleteEvent} // Call the delete event function here
+                      sx={{
+                        color: theme.palette.secondary.main,
+                        mr: selectedEvent !== null ? 1 : 0,
+                      }}
+                    >
+                      <DeleteIcon sx={{ fontSize: "30px" }} />{" "}
+                      {/* Use DeleteIcon here */}
+                    </IconButton>
+                  ) : null}
+                </div>
+              </form>
+            </DatePickerWrapper>
+          </Box>
+        </Drawer>
+      )}
     </div>
   );
 };
 
+export default MyCalendar;
 const PickersComponent = forwardRef(({ ...props }: PickerProps, ref) => {
   return (
     <TextField
@@ -615,5 +840,3 @@ const PickersComponent = forwardRef(({ ...props }: PickerProps, ref) => {
   );
 });
 PickersComponent.displayName = "PickersComponent";
-
-export default MyCalendar;

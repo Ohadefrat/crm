@@ -25,7 +25,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         position: "fixed",
         height: "100%",
         width: "20%",
-        backgroundColor: "#424B54",
+        backgroundColor: `${theme.palette.primary.main}`,
         color: "white",
         border: `1px solid ${theme.palette.text.secondary}`,
         borderRadius: "5px",
@@ -53,9 +53,11 @@ const Sidebar: React.FC<SidebarProps> = ({
                     ? "1px solid white"
                     : "1px solid transparent",
                 backgroundColor:
-                  selectedItem === item ? "#C5BAAF" : "transparent",
+                  selectedItem === item
+                    ? `${theme.palette.secondary.main}`
+                    : "transparent",
                 "&:hover": {
-                  backgroundColor: "#C5BAAF", // Set your hover background color
+                  backgroundColor: `${theme.palette.info.main}`, // Set your hover background color
                   border: "1px solid white",
                 },
               }}

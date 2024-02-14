@@ -35,6 +35,8 @@ code[class*='language-'] {
 
 /* Basic styling for FullCalendar */
 .fc {
+  font-family: 'Inter', sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+  'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue';
   position: relative;
   display: flex;
   flex-direction: column;
@@ -111,6 +113,8 @@ border-radius: 3px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+  
+
 }
 
 .fc-button {
@@ -120,6 +124,8 @@ border-radius: 3px;
   padding: 5px 10px;
   margin: 0 2px;
   cursor: pointer;
+  text-transform: uppercase;
+
 }
 
 .fc-button:hover {
@@ -135,8 +141,8 @@ border-radius: 3px;
 /* Prev/Next buttons styling */
 .fc-prev-button,
 .fc-next-button {
-  background-color: #424B54 !important;
-  color: #000000 !important;
+  background-color: #264653 !important;
+  color: #fff !important;
   border: 1px solid #758696 !important;
   padding: 5px 10px !important;
   margin: 0 2px !important;
@@ -149,15 +155,22 @@ border-radius: 3px;
   border-color: #758696 !important;
 }
 .fc-toolbar-chunk{
-  color: #838383;
+  color: #264653;
+
 }
 .fc-today-button {
-  background-color: #F4C18B !important;
-  color: #000000 !important;
-  border: 1px solid #F4C18B !important;
+  background-color: #264653 !important;
+  color: #fff !important;
+  border: 1px solid #264653 !important;
   padding: 5px 10px !important;
   margin: 0 2px !important;
   cursor: pointer !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  line-height: 1.75 !important;
+  letter-spacing: 0.02857em !important;
+  text-transform: uppercase !important;
+
 }
 
 .fc-today-button:hover {
@@ -167,12 +180,17 @@ border-radius: 3px;
 }
 /* Month button styling */
 .fc-dayGridMonth-button {
-  background-color: #F4C18B !important;
-  color: #000000 !important;
+  background-color: #264653 !important;
+  color: #fff !important;
   padding: 5px 10px !important;
   margin: 0 2px !important;
   cursor: pointer !important;
   border: none !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  line-height: 1.75 !important;
+  letter-spacing: 0.02857em !important;
+  text-transform: uppercase !important;
 }
 
 .fc-dayGridMonth-button:hover {
@@ -183,12 +201,17 @@ border-radius: 3px;
 
 /* Week button styling */
 .fc-timeGridWeek-button {
-  background-color: #F4C18B !important;
-  color: #000000 !important;
-  border: 1px solid #F4C18B !important;
+  background-color: #264653 !important;
+  color: #fff !important;
+  border: 1px solid #264653 !important;
   padding: 5px 10px !important;
   margin: 0 3px !important;
   cursor: pointer !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  line-height: 1.75 !important;
+  letter-spacing: 0.02857em !important;
+  text-transform: uppercase !important;
 }
 
 .fc-timeGridWeek-button:hover {
@@ -200,14 +223,18 @@ border-radius: 3px;
 
 /* Day button styling */
 .fc-timeGridDay-button {
-  background-color: #F4C18B !important;
-  color: #000000 !important;
-  border: 1px solid #F4C18B !important;
+  background-color: #264653 !important;
+  color: #fff !important;
+  border: 1px solid #264653 !important;
   border-radius: 3px;
-
   padding: 5px 10px !important;
   margin: 0 2px !important;
   cursor: pointer !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  line-height: 1.75 !important;
+  letter-spacing: 0.02857em !important;
+  text-transform: uppercase !important;
 }
 
 .fc-timeGridDay-button:hover {
@@ -223,23 +250,23 @@ border-radius: 3px;
 
 /* Day cells border styling */
 .fc-daygrid-day-frame {
-  border-color: #F4C18B !important;
+  border-color: #264653 !important;
 }
 
 .fc-view-harness {
-  border-color: #F4C18B !important;
+  border-color: #264653 !important;
 }
 
 /* Day cells border styling */
 
 /* Table grid styling */
 .fc-scrollgrid {
-  border: 1px solid #F4C18B !important;
+  border: 1px solid #264653 !important;
 }
 
 /* Each day in the calendar styling */
 .fc-day {
-  border: 1px solid #424B54 !important;
+  border: 1px solid #264653 !important;
 }
 
 .react-datepicker-wrapper .datePicker {
@@ -253,6 +280,14 @@ border-radius: 3px;
   width: 100%;
 
 }
+.react-datepicker-popper .react-datepicker__time-list {
+  height: 170px !important; /* Or any other desired height */
+  overflow-y: auto; /* Add scrollbars if needed */
+}
+.react-datepicker__day.react-datepicker__day--014.react-datepicker__day--today {
+  border-radius: 50% !important; /* This creates a perfect circle */
+  /* Additional styling if needed */
+}
 .icon-container {
   position: absolute;
   top: 0;
@@ -265,5 +300,61 @@ border-radius: 3px;
 .icon-container img {
   width: 40px; /* Adjust the width and height as needed */
   height: 40px;
+}
+
+@media (max-width: 768px) {
+  /* Override styles for mobile view */
+
+  /* Basic styling for FullCalendar */
+  .fc {
+    padding: 0; /* Remove padding */
+    height: 100vh;
+  }
+
+  /* Day cell styling */
+  .fc-day {
+    min-height: 60px; /* Adjust min-height for smaller screens */
+  }
+
+  /* Event styling */
+  .fc-event {
+    padding: 1px 2px; /* Adjust padding for smaller screens */
+    margin: 1px; /* Adjust margin for smaller screens */
+  }
+
+  /* Header styling */
+  .fc-toolbar {
+    flex-direction: column; /* Stack toolbar items vertically */
+    align-items: center; /* Center align toolbar items */
+  }
+  .fc-toolbar-chunk{
+    font-size: 10px;
+  }
+
+  /* Toolbar button styling */
+  .fc-button {
+    margin: 5px 0; /* Adjust margin for smaller screens */
+
+  }
+  .fc-toolbar-chunk{
+    margin-bottom: 5px !important;
+  }
+  .fc-dayGridMonth-button {
+    height: 30px;
+    font-size: 0.8rem !important;
+  }
+  .fc-timeGridWeek-button {
+    height: 30px;
+    font-size: 0.8rem !important;
+  }
+  .fc-timeGridDay-button {
+    height: 30px;
+    font-size: 0.8rem !important;
+  }
+  .fc-today-button{
+    height: 30px;
+    font-size: 0.8rem !important;
+  }
+
 }
 

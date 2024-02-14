@@ -9,6 +9,7 @@ import {
   styled,
 } from "@mui/material";
 import { useRouter } from "next/router";
+import theme from "../style/theme";
 
 const LinkStyled = styled(Link)(({ theme }) => ({
   fontSize: "0.875rem",
@@ -185,12 +186,17 @@ const RegisterPage = () => {
               flexDirection: "column",
               alignItems: "center",
               width: "70%",
-              border: "1px solid black",
+              border: "1px solid white",
               borderRadius: "10px",
               padding: "20px",
+              boxShadow: "1px 4px 8px rgba(0, 0, 0, 0.5)", // Add box shadow
             }}
           >
-            <Typography variant="h4" gutterBottom>
+            <Typography
+              variant="h4"
+              gutterBottom
+              sx={{ color: theme.palette.primary.main }}
+            >
               Register
             </Typography>
             <Box

@@ -236,7 +236,11 @@ const UserList: React.FC = () => {
 
   const handleDeleteSelected = async () => {
     try {
-      const selectedUserIds = selectedUsers.map((user) => user.id);
+      const nonAdminUsers = selectedUsers.filter(
+        (user) => user.role !== "admin"
+      );
+
+      const selectedUserIds = nonAdminUsers.map((user) => user.id);
       const response = await fetch("/api/delete-selected-users", {
         method: "DELETE",
         headers: {
@@ -267,7 +271,7 @@ const UserList: React.FC = () => {
       <Box display="flex" justifyContent="space-between" marginBottom={2}>
         <Button
           variant="contained"
-          color="primary"
+          color="secondary"
           startIcon={<AddIcon />}
           onClick={handleToggleDrawer()}
         >
@@ -276,7 +280,7 @@ const UserList: React.FC = () => {
         {selectedUsers.length > 0 && (
           <Button
             variant="outlined"
-            color="secondary"
+            color="error"
             startIcon={<DeleteIcon />}
             onClick={handleDeleteSelected}
           >
@@ -326,7 +330,7 @@ const UserList: React.FC = () => {
           <Box display="flex" justifyContent="flex-end" marginTop={2}>
             <Button
               variant="contained"
-              color="primary"
+              color="success"
               onClick={handleAddOrUpdateUser}
             >
               {editingUser ? "Update" : "Add"}
@@ -376,10 +380,16 @@ const UserList: React.FC = () => {
                 <TableCell>
                   {user.role !== "admin" && ( // Check if user.role is not 'admin'
                     <>
-                      <IconButton onClick={() => handleDelete(user.id)}>
+                      <IconButton
+                        onClick={() => handleDelete(user.id)}
+                        color="error"
+                      >
                         <DeleteIcon />
                       </IconButton>
-                      <IconButton onClick={handleToggleDrawer(user)}>
+                      <IconButton
+                        onClick={handleToggleDrawer(user)}
+                        color="info"
+                      >
                         <EditIcon />
                       </IconButton>
                     </>

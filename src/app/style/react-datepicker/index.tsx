@@ -22,8 +22,7 @@ const DatePickerWrapper = styled(Box)<BoxProps>(({ theme }) => {
       fontFamily: theme.typography.fontFamily,
       backgroundColor: theme.palette.background.paper,
       border: `1px solid ${theme.palette.divider}`,
-      padding: theme.spacing(1), // Adjust padding as needed
-      fontSize: "0.875rem", // Adjust font size as needed
+      fontSize: "0.5rem", // Adjust font size as needed
 
       "& .react-datepicker__header": {
         padding: 0,
@@ -34,13 +33,30 @@ const DatePickerWrapper = styled(Box)<BoxProps>(({ theme }) => {
         "&:not(.react-datepicker-year-header)": {
           "& + .react-datepicker__month, & + .react-datepicker__year": {
             margin: theme.spacing(3.2),
-            marginTop: theme.spacing(6),
+            marginTop: theme.spacing(3),
+
+            [theme.breakpoints.down("sm")]: {
+              fontSize: "0.5rem",
+              margin: theme.spacing(0),
+              marginTop: theme.spacing(1),
+            },
           },
         },
         "&.react-datepicker-year-header": {
           "& + .react-datepicker__month, & + .react-datepicker__year": {
             margin: theme.spacing(3.2),
             marginTop: theme.spacing(4),
+            [theme.breakpoints.up("sm")]: {
+              // Adjustments for screens wider than the 'sm' breakpoint.
+              fontSize: "0.5rem",
+              margin: theme.spacing(0),
+              marginTop: theme.spacing(0),
+            },
+            [theme.breakpoints.down("sm")]: {
+              fontSize: "0.5rem",
+              margin: theme.spacing(0),
+              marginTop: theme.spacing(0),
+            },
           },
         },
       },
@@ -48,7 +64,7 @@ const DatePickerWrapper = styled(Box)<BoxProps>(({ theme }) => {
         display: "none",
       },
       "& > .react-datepicker__navigation": {
-        top: 18,
+        top: 8,
         "&.react-datepicker__navigation--previous": {
           width: 24,
           height: 24,
@@ -73,15 +89,26 @@ const DatePickerWrapper = styled(Box)<BoxProps>(({ theme }) => {
             display: "none",
           },
         },
-        "&.react-datepicker__navigation--next--with-time":
-          theme.direction === "ltr" ? { right: 127 } : { left: 127 },
+        "&.react-datepicker__navigation--next--with-time": {
+          [theme.breakpoints.down("sm")]: {
+            ...(theme.direction === "ltr" ? { right: 100 } : { left: 100 }),
+          },
+          [theme.breakpoints.up("sm")]: {
+            ...(theme.direction === "ltr" ? { right: 110 } : { left: 110 }),
+          },
+        },
         "&:focus, &:active": {
           outline: 0,
         },
       },
       "& .react-datepicker__month-container": {
         paddingTop: theme.spacing(1),
-        height: "300px",
+        height: "250px",
+        [theme.breakpoints.down("sm")]: {
+          fontSize: "0.1rem",
+          height: "220px",
+          width: "100%",
+        },
       },
       "& .react-datepicker__current-month, & .react-datepicker-year-header": {
         fontSize: "0.875rem", // Adjust font size as needed
@@ -90,6 +117,9 @@ const DatePickerWrapper = styled(Box)<BoxProps>(({ theme }) => {
         fontWeight: "normal",
         letterSpacing: "0.15px",
         color: theme.palette.text.primary,
+        [theme.breakpoints.down("sm")]: {
+          fontSize: "0.7rem",
+        },
       },
       "& .react-datepicker__day-name": {
         margin: 0,
@@ -98,6 +128,13 @@ const DatePickerWrapper = styled(Box)<BoxProps>(({ theme }) => {
         lineHeight: "1.5",
         letterSpacing: "0.4px",
         color: theme.palette.text.secondary,
+        [theme.breakpoints.down("sm")]: {
+          width: "1.5rem", // Adjust width as needed
+
+          fontSize: "0.6rem",
+          letterSpacing: "0.2px",
+          lineHeight: "1",
+        },
       },
       "& .react-datepicker__day": {
         margin: 0,
@@ -106,6 +143,11 @@ const DatePickerWrapper = styled(Box)<BoxProps>(({ theme }) => {
         lineHeight: "2rem",
         fontSize: "0.875rem",
         color: theme.palette.text.primary,
+
+        [theme.breakpoints.down("sm")]: {
+          fontSize: "0.75rem",
+          width: "1.5rem", // Adjust width for smaller screens
+        },
         "&.react-datepicker__day--selected.react-datepicker__day--in-selecting-range.react-datepicker__day--selecting-range-start, &.react-datepicker__day--selected.react-datepicker__day--range-start.react-datepicker__day--in-range, &.react-datepicker__day--range-start":
           {
             borderTopLeftRadius: "50%",
@@ -379,7 +421,8 @@ const DatePickerWrapper = styled(Box)<BoxProps>(({ theme }) => {
           fontSize: "0.75rem",
           borderLeftColor: theme.palette.divider,
           [theme.breakpoints.down("sm")]: {
-            width: "4rem", // Adjust width as needed for smaller screens
+            width: "5rem", // Adjust width as needed for smaller screens
+            fontSize: "0.5rem",
           },
           [theme.breakpoints.up("sm")]: {
             width: "5.75rem", // Adjust width as needed for larger screens
@@ -395,13 +438,13 @@ const DatePickerWrapper = styled(Box)<BoxProps>(({ theme }) => {
         padding: theme.spacing(1.2, 0),
         "& .react-datepicker__time-container": {
           width: "calc(7rem - 2px)",
+          height: "170px",
         },
       },
       "& .react-datepicker__time-container": {
         padding: theme.spacing(1.2, 0),
         "& .react-datepicker-time__header": {
           fontSize: "1rem",
-          lineHeight: 1.31,
           fontWeight: "normal",
           letterSpacing: "0.15px",
           marginBottom: theme.spacing(3),
@@ -447,6 +490,8 @@ const DatePickerWrapper = styled(Box)<BoxProps>(({ theme }) => {
           width: "100%",
         },
         "& .react-datepicker__time-list": {
+          heigth: "170px !important",
+
           "&::-webkit-scrollbar": {
             width: 8,
           },

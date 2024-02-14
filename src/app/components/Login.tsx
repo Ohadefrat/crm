@@ -14,6 +14,7 @@ import {
 import Cookies from "js-cookie";
 
 import IconSVG from "../../../public/crm_logo.svg";
+import theme from "../style/theme"; // Import your custom theme
 
 const secretKey = "Oh@D3Fr@T";
 const LinkStyled = styled(Link)(({ theme }) => ({
@@ -148,12 +149,17 @@ const LoginPage = () => {
               flexDirection: "column",
               alignItems: "center",
               width: "70%",
-              border: "1px solid black",
+              border: "1px solid white",
               borderRadius: "10px",
               padding: "20px",
+              boxShadow: "1px 4px 8px rgba(0, 0, 0, 0.5)", // Add box shadow
             }}
           >
-            <Typography variant="h4" gutterBottom>
+            <Typography
+              variant="h4"
+              gutterBottom
+              sx={{ color: theme.palette.primary.main }}
+            >
               Login
             </Typography>
             <Box
